@@ -15,7 +15,7 @@ resource_local_to_scene = true
 size = Vector2(53, 76)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-z_as_relative = false
+z_index = 1
 y_sort_enabled = true
 input_pickable = true
 script = ExtResource("1_vhld5")

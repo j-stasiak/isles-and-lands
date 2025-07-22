@@ -9,6 +9,7 @@
 size = Vector2(291, 201)
 
 [node name="Castle" type="Node2D"]
+z_index = 1
 y_sort_enabled = true
 
 [node name="Building" parent="." node_paths=PackedStringArray("spawn_point", "sprite") instance=ExtResource("1_58oqt")]
