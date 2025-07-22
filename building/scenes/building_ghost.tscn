@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://kku02qq4id10"]
+
+[ext_resource type="Script" uid="uid://c0b6uxptlay3i" path="res://building/scripts/building_ghost.gd" id="1_wir4b"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_wir4b")
