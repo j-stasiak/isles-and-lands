@@ -27,6 +27,7 @@ shape = SubResource("RectangleShape2D_umpyi")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 texture = ExtResource("2_umpyi")
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]

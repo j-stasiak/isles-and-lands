@@ -22,7 +22,7 @@ script = ExtResource("1_vhld5")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 1
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_augkv")
 position = Vector2(-0.5, 1)
 scale = Vector2(0.5, 0.5)
