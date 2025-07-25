@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://deldqsvrdraf2"]
+
+[ext_resource type="Script" uid="uid://b262736ro6wpw" path="res://scripts/ui/SelectionBox.gd" id="1_moaxt"]
+
+[node name="SelectionBox" type="Node2D"]
+top_level = true
+z_index = 3
+script = ExtResource("1_moaxt")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://4s14fdcrjonv"]
+
+[ext_resource type="Script" uid="uid://ptry7s40fong" path="res://scripts/scenes/GameplayScene.gd" id="1_agld1"]
+[ext_resource type="PackedScene" uid="uid://c5ctcqfbwe152" path="res://prefabs/buildings/Castle.tscn" id="2_ikxyh"]
+[ext_resource type="PackedScene" uid="uid://igoccf6npo3t" path="res://prefabs/nodes/Map.tscn" id="3_ikxyh"]
+[ext_resource type="PackedScene" uid="uid://deldqsvrdraf2" path="res://prefabs/ui/SelectionBox.tscn" id="4_agld1"]
+
+[node name="GameplayScene" type="Node2D" groups=["troops"]]
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_agld1")
+castle_scene = ExtResource("2_ikxyh")
+
+[node name="Map" parent="." instance=ExtResource("3_ikxyh")]
+z_index = -1
+y_sort_enabled = true
+
+[node name="SelectionBox" parent="." instance=ExtResource("4_agld1")]
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5ctcqfbwe152"]
+
+[ext_resource type="Script" uid="uid://4lm2sux4n8qv" path="res://scripts/buildings/Castle.gd" id="1_5vet8"]
+[ext_resource type="Texture2D" uid="uid://biedieu4ar7a8" path="res://sprites/building/Castle_Blue.png" id="1_goaik"]
+[ext_resource type="Texture2D" uid="uid://c3i6l5yr81ebc" path="res://sprites/building/Castle_Construction.png" id="2_e4t1s"]
+[ext_resource type="PackedScene" uid="uid://c5elgipmiquwn" path="res://prefabs/units/Troop.tscn" id="2_wfj0e"]
+[ext_resource type="Texture2D" uid="uid://baoqeh75ne7wa" path="res://sprites/building/Castle_Destroyed.png" id="4_wfj0e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vet8"]
+size = Vector2(285, 91)
+
+[node name="Castle" type="StaticBody2D" node_paths=PackedStringArray("spawn_point", "sprite", "navigation_obstacle")]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("1_5vet8")
+default_recruitment_queue = Array[PackedScene]([ExtResource("2_wfj0e")])
+construction_texture = ExtResource("2_e4t1s")
+active_texture = ExtResource("1_goaik")
+destroyed_texture = ExtResource("4_wfj0e")
+spawn_point = NodePath("SpawnPoint")
+sprite = NodePath("Sprite2D")
+navigation_obstacle = NodePath("NavigationObstacle2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 68.5)
+shape = SubResource("RectangleShape2D_5vet8")
+disabled = true
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+vertices = PackedVector2Array(-145, 22, 146, 20, 146, 116, -144, 116)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, 135)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("1_goaik")
