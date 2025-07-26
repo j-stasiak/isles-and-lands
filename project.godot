@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="Isles And Lands"
+run/main_scene="uid://4s14fdcrjonv"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-BuildingConstants="*res://building/scripts/building_constants.gd"
+BuildingConstants="*res://entities/building/scripts/building_constants.gd"
 
 [global_group]
 

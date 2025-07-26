@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5elgipmiquwn"]
+
+[ext_resource type="Script" uid="uid://cnqtadxwvbjtx" path="res://entities/troops/troop.gd" id="1_vhld5"]
+[ext_resource type="Shader" uid="uid://beuwmro1qaeiy" path="res://entities/troops/troop.gdshader" id="2_5kdfg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_augkv"]
+resource_local_to_scene = true
+shader = ExtResource("2_5kdfg")
+shader_parameter/shadow_color = Color(0.0627451, 0.0705882, 0.105882, 0.309804)
+shader_parameter/selection_color = Color(0.20091, 0.507289, 1, 1)
+shader_parameter/is_selected = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_556l7"]
+resource_local_to_scene = true
+size = Vector2(53, 76)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
+input_pickable = true
+script = ExtResource("1_vhld5")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_augkv")
+position = Vector2(-0.5, 1)
+scale = Vector2(0.5, 0.5)
+animation = &""
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_556l7")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
