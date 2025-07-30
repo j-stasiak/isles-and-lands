@@ -22,6 +22,7 @@ BuildingConstants="*res://entities/building/scripts/building_constants.gd"
 [global_group]
 
 troops=""
+map=""
 
 [input]
 

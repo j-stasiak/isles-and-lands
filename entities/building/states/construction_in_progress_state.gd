@@ -1,10 +1,8 @@
 extends State
 class_name ConstructionInProgressState
 
-signal construction_done
-
-@export var building: Building
-@onready var construction_timer: Timer = $"../../ConstructionTimer"
+@export var next_state: State
+@onready var construction_timer: Timer = $ConstructionTimer
 
 func on_enter() -> void:
 	construction_timer.start()
@@ -12,6 +10,5 @@ func on_enter() -> void:
 func on_exit() -> void:
 	pass
 
-
 func _on_construction_timer_timeout() -> void:
-	construction_done.emit()
+	state_changed.emit(next_state)

@@ -196,7 +196,7 @@ terrain_set_0/terrain_0/color = Color(0, 0.466636, 0.165234, 1)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_a0dt8")
 
-[node name="Map" type="Node2D"]
+[node name="Map" type="Node2D" groups=["map"]]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -1

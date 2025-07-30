@@ -1,8 +1,7 @@
 extends Node
 class_name State
 
-@export_group("State")
-@export var is_initial: bool
+signal state_changed(new_state: State)
 
 func _ready() -> void:
 	set_physics_process(false)

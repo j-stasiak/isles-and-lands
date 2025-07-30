@@ -1,7 +1,13 @@
 extends State
 class_name ActiveState
 
-@export var building: Building
+@export var sprite: Sprite2D
+@export var active_texture: Texture2D
+
+@onready var troop_spawner: TroopSpawner = $"../../TroopSpawner"
 
 func on_enter():
-	building.sprite.texture = building.active_texture
+	sprite.texture = active_texture
+
+	if troop_spawner != null:
+		troop_spawner.schedule_troop_creation()

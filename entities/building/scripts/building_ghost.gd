@@ -2,8 +2,7 @@ class_name BuildingGhost extends Node
 
 @export var can_place_color: Color = Color(0.5, 1.0, 0.5, 0.7)
 @export var cannot_place_color: Color = Color(1.0, 0.5, 0.5, 0.7)
-
-var sprite: Sprite2D
+@export var sprite: Sprite2D
 
 func _ready() -> void:
 	pass

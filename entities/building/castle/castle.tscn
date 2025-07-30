@@ -1,32 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5ctcqfbwe152"]
+[gd_scene load_steps=9 format=3 uid="uid://c5ctcqfbwe152"]
 
-[ext_resource type="PackedScene" uid="uid://dk4v656rwhbh0" path="res://entities/building/scenes/building.tscn" id="1_58oqt"]
 [ext_resource type="Texture2D" uid="uid://c3i6l5yr81ebc" path="res://entities/building/castle/art/Castle_Construction.png" id="2_gf7m1"]
 [ext_resource type="Texture2D" uid="uid://biedieu4ar7a8" path="res://entities/building/castle/art/Castle_Blue.png" id="2_umpyi"]
-[ext_resource type="Texture2D" uid="uid://baoqeh75ne7wa" path="res://entities/building/castle/art/Castle_Destroyed.png" id="4_n00vn"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_umpyi"]
-size = Vector2(291, 201)
+[ext_resource type="PackedScene" uid="uid://kku02qq4id10" path="res://entities/building/scenes/building_ghost.tscn" id="5_4ppht"]
+[ext_resource type="Script" uid="uid://diewl15foctwl" path="res://components/state_machine/state_machine.gd" id="6_bf6af"]
+[ext_resource type="Script" uid="uid://bs5vfyflbx0rr" path="res://entities/building/states/placing_construction_site_state.gd" id="7_k6tw2"]
+[ext_resource type="Script" uid="uid://78vxfvr2fls5" path="res://entities/building/states/construction_in_progress_state.gd" id="9_70c2f"]
+[ext_resource type="Script" uid="uid://cubgsg63muwsy" path="res://entities/building/states/active_state.gd" id="10_ln6pr"]
+[ext_resource type="Script" uid="uid://dy2pxkmrhdtov" path="res://components/troop_spawner/troop_spawner.gd" id="12_skvom"]
 
 [node name="Castle" type="Node2D"]
 z_index = 1
 y_sort_enabled = true
-
-[node name="Building" parent="." node_paths=PackedStringArray("spawn_point", "sprite") instance=ExtResource("1_58oqt")]
-z_as_relative = true
-y_sort_enabled = true
-collision_layer = 2
-collision_mask = 2
-spawn_point = NodePath("../Marker2D")
-spawnable_units = PackedStringArray("lancer")
-construction_texture = ExtResource("2_gf7m1")
-active_texture = ExtResource("2_umpyi")
-destroyed_texture = ExtResource("4_n00vn")
-sprite = NodePath("../Sprite2D")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Building"]
-position = Vector2(0.5, 15.5)
-shape = SubResource("RectangleShape2D_umpyi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_umpyi")
@@ -36,3 +21,42 @@ vertices = PackedVector2Array(-145, 22, 146, 20, 146, 116, -144, 116)
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, 135)
+
+[node name="Ghost" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("5_4ppht")]
+sprite = NodePath("../Sprite2D")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_bf6af")
+initial_state = NodePath("PlacingConstructionSiteState")
+metadata/_custom_type_script = "uid://diewl15foctwl"
+
+[node name="PlacingConstructionSiteState" type="Node" parent="StateMachine" node_paths=PackedStringArray("next_state", "building_ghost", "sprite")]
+script = ExtResource("7_k6tw2")
+next_state = NodePath("../ConstructionInProgressState")
+building_ghost = NodePath("../../Ghost")
+construction_texture = ExtResource("2_gf7m1")
+sprite = NodePath("../../Sprite2D")
+metadata/_custom_type_script = "uid://bs5vfyflbx0rr"
+
+[node name="ConstructionInProgressState" type="Node" parent="StateMachine" node_paths=PackedStringArray("next_state")]
+script = ExtResource("9_70c2f")
+next_state = NodePath("../ActiveState")
+metadata/_custom_type_script = "uid://78vxfvr2fls5"
+
+[node name="ConstructionTimer" type="Timer" parent="StateMachine/ConstructionInProgressState"]
+wait_time = 5.0
+one_shot = true
+
+[node name="ActiveState" type="Node" parent="StateMachine" node_paths=PackedStringArray("sprite")]
+script = ExtResource("10_ln6pr")
+sprite = NodePath("../../Sprite2D")
+active_texture = ExtResource("2_umpyi")
+metadata/_custom_type_script = "uid://cubgsg63muwsy"
+
+[node name="TroopSpawner" type="Node" parent="." node_paths=PackedStringArray("spawn_point")]
+script = ExtResource("12_skvom")
+troop_to_spawn = "lancer"
+spawn_point = NodePath("../Marker2D")
+metadata/_custom_type_script = "uid://dy2pxkmrhdtov"
+
+[connection signal="timeout" from="StateMachine/ConstructionInProgressState/ConstructionTimer" to="StateMachine/ConstructionInProgressState" method="_on_construction_timer_timeout"]
